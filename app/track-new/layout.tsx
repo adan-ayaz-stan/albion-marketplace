@@ -1,7 +1,7 @@
 import Navigation from "@/components/navigation";
 import { Home, Pickaxe } from "lucide-react";
 
-export const navigationItems = [
+const navigationItems = [
   {
     id: "dashboard",
     label: "Dashboard",

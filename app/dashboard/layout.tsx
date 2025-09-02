@@ -3,7 +3,7 @@ import Navigation from "@/components/navigation";
 import { Home, Pickaxe } from "lucide-react";
 import Link from "next/link";
 
-export const navigationItems = [
+const navigationItems = [
   {
     id: "dashboard",
     label: "Dashboard",
