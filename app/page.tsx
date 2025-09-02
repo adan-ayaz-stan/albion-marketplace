@@ -21,7 +21,7 @@ export default function Home() {
       <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
         <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
           <div className="flex gap-5 items-center font-semibold">
-            <Link href={"/"}>Spitfire's Albion Project</Link>
+            <Link href={"/"}>Spitfire&apos;s Albion Project</Link>
           </div>
           <AuthButton />
         </div>
@@ -114,7 +114,7 @@ export default function Home() {
             </h2>
             <p className="text-xl text-slate-300 max-w-2xl mx-auto">
               Powerful tools and insights to give you the competitive edge in
-              Albion Online's dynamic economy.
+              Albion Online&apos;s dynamic economy.
             </p>
           </div>
 
@@ -240,8 +240,8 @@ export default function Home() {
                 Search Items
               </h3>
               <p className="text-slate-300">
-                Find any item in Albion Online's vast database with our powerful
-                search engine.
+                Find any item in Albion Online&apos;s vast database with our
+                powerful search engine.
               </p>
             </div>
 

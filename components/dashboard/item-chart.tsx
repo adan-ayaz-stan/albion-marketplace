@@ -32,7 +32,7 @@ type ChartDataPayload = Awaited<
 
 // The Y-Axis function is reusable, just needs the dataKey as an argument
 const calculateYAxisDomain = (
-  chartData: any[],
+  chartData: Record<string, unknown>[],
   dataKey: string
 ): [number, number] => {
   const maxValue = chartData.reduce((max, row) => {
@@ -120,8 +120,8 @@ const ItemChart: React.FC<ItemChartProps> = ({ unique_id }) => {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Today's Price History</CardTitle>
-          <CardDescription>Loading today's price data...</CardDescription>
+          <CardTitle>Today&apos;s Price History</CardTitle>
+          <CardDescription>Loading today&apos;s price data...</CardDescription>
         </CardHeader>
         <CardContent className="h-[400px] flex items-center justify-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -149,7 +149,7 @@ const ItemChart: React.FC<ItemChartProps> = ({ unique_id }) => {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Today's Price History</CardTitle>
+          <CardTitle>Today&apos;s Price History</CardTitle>
           <CardDescription>{data?.itemName || unique_id}</CardDescription>
         </CardHeader>
         <CardContent className="h-[400px] flex items-center justify-center">
@@ -160,6 +160,7 @@ const ItemChart: React.FC<ItemChartProps> = ({ unique_id }) => {
       </Card>
     );
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChartClick = (event: any) => {
     // Only drill down if we are in the daily view
     if (

@@ -24,7 +24,7 @@ import {
   Save,
   Search,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -71,20 +71,23 @@ export default function TrackNewPage() {
       getItemsBySearchTerm(values.searchTerm, page, 0, 50),
   });
 
+  // 2. Define a submit handler.
+  const onSubmit = useCallback(
+    (values: z.infer<typeof formSchema>) => {
+      searchMutation.mutate(values);
+    },
+    [searchMutation]
+  );
+
   useEffect(() => {
     if (form.formState.isValid && debouncedSearchTerm.length >= 3) {
       form.handleSubmit(onSubmit)();
       setPage(1);
     }
-  }, [debouncedSearchTerm, form, form.formState.isValid]);
-
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    searchMutation.mutate(values);
-  }
+  }, [debouncedSearchTerm, form, form.formState.isValid, onSubmit]);
 
   // Expose mutation data and state
-  const { data: searchResults, isPending, error } = searchMutation;
+  const { data: searchResults, isPending } = searchMutation;
 
   // Handlers for adding and removing items to track
   const addItemToTrack = (item: ItemType) => {
@@ -244,9 +247,9 @@ export default function TrackNewPage() {
                         No items found
                       </h3>
                       <p className="text-muted-foreground max-w-md">
-                        We couldn't find any items matching "
-                        {debouncedSearchTerm}". Try using different keywords or
-                        check your spelling.
+                        We couldn&apos;t find any items matching &quot;
+                        {debouncedSearchTerm}&quot;. Try using different
+                        keywords or check your spelling.
                       </p>
                     </div>
                   )}
@@ -257,7 +260,7 @@ export default function TrackNewPage() {
           <div className="w-full max-w-[40rem]">
             <div className="sticky top-0 right-0 p-4 md:px-8">
               <div className="flex flex-col gap-4 bg-gradient-to-br dark:from-zinc-950 dark:to-gray-950 p-4 rounded-2xl border-2 border-primary shadow-md shadow-primary">
-                <h4 className="font-semibold">Items you're tracking</h4>
+                <h4 className="font-semibold">Items you&apos;re tracking</h4>
                 <Separator />
 
                 <div className="flex flex-col gap-4">

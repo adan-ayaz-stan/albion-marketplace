@@ -1,9 +1,16 @@
-import { useTracking, type Item } from "@/contexts/TrackingContext";
 import { Plus } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 
-interface ItemCardProps extends Item {}
+interface ItemCardProps {
+  unique_id: string;
+  item_name: string;
+  item_description: string;
+  enchantment: number;
+  tier: number;
+  onAddToTrack?: (item: ItemCardProps) => void;
+  isTracked?: boolean;
+}
 
 const ItemCard: React.FC<ItemCardProps> = ({
   unique_id,
@@ -11,16 +18,12 @@ const ItemCard: React.FC<ItemCardProps> = ({
   item_description,
   enchantment,
   tier,
+  onAddToTrack,
+  isTracked = false,
 }) => {
-  const { addTrackedItem, trackedItems } = useTracking();
-
-  const isAlreadyTracked = trackedItems.some(
-    (item) => item.unique_id === unique_id
-  );
-
   const handleAddToTrack = () => {
-    if (!isAlreadyTracked) {
-      addTrackedItem({
+    if (!isTracked && onAddToTrack) {
+      onAddToTrack({
         unique_id,
         item_name,
         item_description,
@@ -57,12 +60,12 @@ const ItemCard: React.FC<ItemCardProps> = ({
       </p>
       <div className="flex items-center justify-end">
         <Button
-          variant={isAlreadyTracked ? "outline" : "secondary"}
+          variant={isTracked ? "outline" : "secondary"}
           onClick={handleAddToTrack}
-          disabled={isAlreadyTracked}
+          disabled={isTracked}
         >
           <Plus />
-          {isAlreadyTracked ? "Already Tracked" : "Add To Track"}
+          {isTracked ? "Already Tracked" : "Add To Track"}
         </Button>
       </div>
     </div>

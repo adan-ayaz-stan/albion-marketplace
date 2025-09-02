@@ -1,9 +1,15 @@
-import { useTracking, type Item } from "@/contexts/TrackingContext";
 import { X } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 
-interface TrackedItemCardProps extends Item {}
+interface TrackedItemCardProps {
+  unique_id: string;
+  item_name: string;
+  item_description: string;
+  enchantment: number;
+  tier: number;
+  onRemove?: (unique_id: string) => void;
+}
 
 const TrackedItemCard: React.FC<TrackedItemCardProps> = ({
   unique_id,
@@ -11,11 +17,12 @@ const TrackedItemCard: React.FC<TrackedItemCardProps> = ({
   item_description,
   enchantment,
   tier,
+  onRemove,
 }) => {
-  const { removeTrackedItem } = useTracking();
-
   const handleRemove = () => {
-    removeTrackedItem(unique_id);
+    if (onRemove) {
+      onRemove(unique_id);
+    }
   };
 
   return (

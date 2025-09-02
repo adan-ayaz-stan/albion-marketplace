@@ -5,10 +5,10 @@ import { Separator } from "../ui/separator";
 import ItemChart from "./item-chart";
 
 interface TrackedItemsProps {
-  // Define props here
+  // No props needed for this component currently
 }
 
-const TrackedItems: React.FC<TrackedItemsProps> = async (props) => {
+const TrackedItems: React.FC<TrackedItemsProps> = async () => {
   const supabase = await createClient();
   const { data: user, error } = await supabase.auth.getUser();
 

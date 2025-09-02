@@ -24,8 +24,6 @@ const Navigation: React.FC<NavigationProps> = ({
   onItemClick,
 }) => {
   const pathname = usePathname();
-  const currentActiveItem =
-    items.find((item) => pathname === item.href)?.id || activeItem;
 
   return (
     <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
