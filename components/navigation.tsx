@@ -20,10 +20,8 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({
   items,
-  activeItem,
   onItemClick,
 }) => {
-  const pathname = usePathname();
 
   return (
     <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">

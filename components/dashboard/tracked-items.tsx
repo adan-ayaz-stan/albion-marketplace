@@ -4,11 +4,7 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import { Separator } from "../ui/separator";
 import ItemChart from "./item-chart";
 
-interface TrackedItemsProps {
-  // No props needed for this component currently
-}
-
-const TrackedItems: React.FC<TrackedItemsProps> = async () => {
+const TrackedItems: React.FC = async () => {
   const supabase = await createClient();
   const { data: user, error } = await supabase.auth.getUser();
 
