@@ -50,7 +50,7 @@ type ItemType = {
 };
 
 export default function TrackNewPage() {
-  const [page, setPage] = useState<number>(1);
+  const [page] = useState<number>(1);
   const [itemsToTrack, setItemsToTrack] = useState<ItemType[]>([]);
 
   // 1. Define your form.
