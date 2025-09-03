@@ -24,7 +24,7 @@ import {
   Save,
   Search,
 } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -67,24 +67,21 @@ export default function TrackNewPage() {
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const searchMutation = useMutation({
+    mutationKey: ["search-items"],
     mutationFn: (values: z.infer<typeof formSchema>) =>
       getItemsBySearchTerm(values.searchTerm, page, 0, 50),
   });
 
-  // 2. Define a submit handler.
-  const onSubmit = useCallback(
-    (values: z.infer<typeof formSchema>) => {
-      searchMutation.mutate(values);
-    },
-    [searchMutation]
-  );
+  // Simple submit handler for manual form submission
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    searchMutation.mutate(values);
+  };
 
   useEffect(() => {
-    if (form.formState.isValid && debouncedSearchTerm.length >= 3) {
-      form.handleSubmit(onSubmit)();
-      setPage(1);
+    if (debouncedSearchTerm.length >= 3) {
+      searchMutation.mutate({ searchTerm: debouncedSearchTerm });
     }
-  }, [debouncedSearchTerm, form, form.formState.isValid, onSubmit]);
+  }, [debouncedSearchTerm]);
 
   // Expose mutation data and state
   const { data: searchResults, isPending } = searchMutation;
